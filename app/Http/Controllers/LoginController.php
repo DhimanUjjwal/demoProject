@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Services\Login\RememberMeExpiration;
 
 class LoginController extends Controller
 {
+    use RememberMeExpiration;
+
     /**
      * Display login page.
      * 
@@ -36,7 +39,11 @@ class LoginController extends Controller
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
-        Auth::login($user);
+        Auth::login($user, $request->get('remember'));
+
+        if($request->get('remember')):
+            $this->setRememberMeExpiration($user);
+        endif;
 
         return $this->authenticated($request, $user);
     }
