@@ -40,5 +40,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+
+        Route::get('/user-details', 'UserDetailController@showForm')->name('user-details.form');
+        Route::post('/user-details', 'UserDetailController@store')->name('user-details.store');
     });
 });
