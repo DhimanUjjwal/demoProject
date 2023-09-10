@@ -21,6 +21,14 @@
         user-select: none;
       }
 
+      body {
+        display: inline;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -32,8 +40,8 @@
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
 </head>
-<body class="text-center">
-    
+<body>
+@include('layouts.partials.navbar')
     <main class="form-signin">
 
         @yield('content')
@@ -43,3 +51,5 @@
 
 </body>
 </html>
+
+
