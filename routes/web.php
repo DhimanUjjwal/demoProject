@@ -19,6 +19,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/get-user-details', 'UserDetailController@getUserDetails')->name('get-user-details');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
@@ -44,4 +45,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/user-details', 'UserDetailController@showForm')->name('user-details.form');
         Route::post('/user-details', 'UserDetailController@store')->name('user-details.store');
     });
+
+
 });
