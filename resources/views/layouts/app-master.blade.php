@@ -11,6 +11,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{('css/app.css') }}">
+
+
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -32,14 +35,19 @@
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 </head>
 <body>
-    
+
+
+<!-- <img src="{{ asset('images/banner.png') }}" alt="Banner Image"> -->
+
     @include('layouts.partials.navbar')
 
-    <main class="container">
+    <main   >
+
         @yield('content')
+       
     </main>
 
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-      
+    @include('layouts.partials.fotter') 
   </body>
 </html>
