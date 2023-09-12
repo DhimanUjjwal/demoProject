@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form action="{{ route('user-details.store') }}" method="POST">
+            <form style="padding: 10px;" action="{{ route('user-details.store') }}" method="POST">
                 @csrf
                 <h1 class="h3 mb-3 fw-normal">User Details</h1>
                 @include('layouts.partials.messages')
@@ -25,11 +25,10 @@
                     <label for="state">State</label>
                 </div>
                 <div class="form-group form-floating mb-3">
+                    <input type="text" name="address" id="address" class="form-control" required>
                     <label for="address">Address</label>
-                    <textarea name="address" id="address" class="form-control" required></textarea>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button  class="btn btn-dark" type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
