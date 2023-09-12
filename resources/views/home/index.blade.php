@@ -13,14 +13,15 @@
             <h1>First Influencer Hiring</h1>
             <h1>Platform in The World</h1>
             <p>Hire talented influencers at the most affordable cost to get the most out of your time and cost</p>
-            <form id="searchBoxID" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+            <div id="searchBoxID" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <div class="input-group">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                    <input id="inputName" type="text" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
                     <button class="btn btn-outline-light" type="button" id="searchButton">
                         &#x1F50E;&#xFE0E;
                     </button>
                 </div>
-            </form>
+                <ul id="searchResults" class="list-group"></ul>
+            </div>
         </div>
     </div>
 
@@ -50,6 +51,12 @@
         color: bisque;
     }
 
+    .list-group-item {
+        color: #fafdff;
+        background-color: #212529;
+        border: 1px solid rgba(0, 0, 0, .125);
+    }
+
     @media screen and (max-width: 768px) {
         .hero {
             justify-content: center;
@@ -65,4 +72,50 @@
         }
     }
 </style>
+
+<script>
+    $(document).ready(function() {
+        // Add an event listener to the search button
+        var flag ;
+        $('#searchButton').click(function() {
+            // Get the search query from the input field
+            var searchQuery = $('#inputName').val();
+
+            // Perform an AJAX request to fetch search results
+            $.ajax({
+                url: '/get-user-details', // Replace with your server endpoint
+                method: 'get', // Adjust the HTTP method as needed
+                data: {
+                    query: searchQuery
+                }, // Send the search query as data
+                success: function(results) {
+                    // Clear the search results list before adding new items
+                    $('#searchResults').empty();
+                    $('#searchResults').show();
+
+                    // Iterate through the search results and add them as list items
+                    $.each(results.userDetails, function(index, result) {
+                        var listItem = $('<a>').addClass('list-group-item dark').text(result.full_name);
+                        flag = true;
+                        $('#searchResults').append(listItem);
+                    });
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+
+        });
+
+
+        $('body').click(function() {
+            if (flag == true) {
+                $('#searchResults').hide();
+            }
+
+        });
+
+    });
+</script>
+
 @endsection

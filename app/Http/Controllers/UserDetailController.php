@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\UserDetail;
 use Illuminate\Support\Facades\Auth;
@@ -34,16 +35,33 @@ class UserDetailController extends Controller
 
     public function getUserDetails(Request $request)
     {
-        // Assuming you have a UserDetail model with 'first_name' and 'last_name' columns
-        $userDetails = UserDetail::select(['id', 'user_id', 'first_name', 'last_name'])
-            ->with('user') // Assuming you have a 'user' relationship in UserDetail model
+        // Get the 'name' parameter from the query string
+        $name = $request->query('query');
+        
+        if (!$name) {
+            return response()->json(['error' => 'error_required']);
+        }
+        
+        // Query the UserDetail model for records with a 'first_name' or 'last_name' containing the provided name
+        $userDetails = UserDetail::select('user_details.first_name', 'user_details.last_name')
+            ->where('first_name', 'LIKE', "%$name%")
+            ->orWhere('last_name', 'LIKE', "%$name%")
             ->get();
 
-        // Calculate the full name for each user
+        // Calculate the full name for each matching user
         $userDetails->each(function ($userDetail) {
             $userDetail->full_name = $userDetail->first_name . ' ' . $userDetail->last_name;
         });
 
         return response()->json(['userDetails' => $userDetails]);
+    }
+
+
+    public function index()
+    {
+        $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
+            ->select('users.email', 'user_details.address', 'user_details.first_name', 'user_details.last_name') 
+            ->get(); // Fetch all user details
+        return view('home.listview', ['users' => $users]);
     }
 }
