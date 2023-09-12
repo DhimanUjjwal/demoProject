@@ -20,6 +20,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      */
     Route::get('/', 'HomeController@index')->name('home.index');
     Route::get('/get-user-details', 'UserDetailController@getUserDetails')->name('get-user-details');
+    Route::get('/peopleDetail', 'UserDetailController@index')->name('user-Detail-ListView');
 
     Route::group(['middleware' => ['guest']], function() {
         /**
