@@ -18,8 +18,7 @@ class UserDetailController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-       
-
+    
         $userDetail = new UserDetail([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -28,10 +27,15 @@ class UserDetailController extends Controller
             'address' => $request->input('address'),
         ]);
 
+        // Concatenate first_name and last_name to update the name column
+        $user->name = $request->input('first_name') . ' ' . $request->input('last_name');
+        $user->save();
+
         $user->userDetail()->save($userDetail);
 
         return redirect()->route('home.index')->with('success', 'User details saved successfully.');
     }
+
 
     public function getUserDetails(Request $request)
     {

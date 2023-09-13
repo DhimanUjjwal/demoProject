@@ -58,6 +58,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Logout Routes
          */
         Route::get('admin/logout', 'LogoutController@perform')->name('admin.logout.perform');
+        Route::get('/admin/update-status', 'AdminUserTransformationController@updateStatus')->name('admin.updateStatus');
 
     });
 
