@@ -13,8 +13,12 @@
       </ul>
 
       @auth
-        {{auth()->user()->name}}
-        <div class="text-end">
+      @if(auth()->user()->user_detail)
+          {{ auth()->user()->user_detail->first_name }} {{ auth()->user()->user_detail->last_name }}
+      @else
+          User
+      @endif
+        <div class="text-end" style="padding-left: 10px;">
           <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
         </div>
       @endauth

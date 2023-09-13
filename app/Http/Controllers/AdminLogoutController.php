@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
-class LogoutController extends Controller
+class AdminLogoutController extends Controller
 {
     /**
-     * Log out account user.
+     * Log out account admin.
      *
      * @return \Illuminate\Routing\Redirector
      */
     public function perform()
     {
-        Session::flush();
-        
-        Auth::logout();
+       Auth::guard('admin')->logout();
 
-        return redirect('');
+       Session::flush();
+
+       return redirect('/admin');
     }
 }
