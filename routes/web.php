@@ -19,6 +19,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
+    Route::get('/admin', 'AdminHomeController@index')->name('admin.home.index');
     Route::get('/get-user-details', 'UserDetailController@getUserDetails')->name('get-user-details');
     Route::get('/peopleDetail', 'UserDetailController@index')->name('user-Detail-ListView');
 
@@ -34,6 +35,29 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
+
+    });
+
+    Route::group(['middleware' => ['guest:admin']], function() {
+        // /**
+        //  * Register Routes
+        //  */
+        // Route::get('/admin/register', 'AdminRegisterController@show')->name('register.show');
+        // Route::post('/admin/register', 'AdminRegisterController@register')->name('register.perform');
+
+        /**
+         * Login Routes
+         */
+        Route::get('/admin/login', 'AdminLoginController@show')->name('admin.login.show');
+        Route::post('/admin/login', 'AdminLoginController@login')->name('admin.login.perform');
+
+    });
+
+    Route::group(['middleware' => ['auth:admin']], function() {
+        /**
+         * Logout Routes
+         */
+        Route::get('admin/logout', 'LogoutController@perform')->name('admin.logout.perform');
 
     });
 
