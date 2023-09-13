@@ -29,24 +29,29 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(LoginRequest $request)
-    {
-        $credentials = $request->getCredentials();
+{
+    $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)):
-            return redirect()->to('login')
-                ->withErrors(trans('auth.failed'));
-        endif;
-
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
-
-        Auth::login($user, $request->get('remember'));
-
-        if($request->get('remember')):
-            $this->setRememberMeExpiration($user);
-        endif;
-
-        return $this->authenticated($request, $user);
+    if (!Auth::validate($credentials)) {
+        return redirect()->to('login')
+            ->withErrors(trans('auth.failed'));
     }
+
+    $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+    if (!$user || $user->status !== 1) {
+        return redirect()->to('login')
+            ->withErrors(['status' => 'Contact Admin for Activation']);
+    }
+
+    Auth::login($user, $request->get('remember'));
+
+    if ($request->get('remember')) {
+        $this->setRememberMeExpiration($user);
+    }
+
+    return $this->authenticated($request, $user);
+}
 
     /**
      * Handle response after user authenticated

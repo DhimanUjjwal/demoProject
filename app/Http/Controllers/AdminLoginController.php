@@ -30,24 +30,6 @@ class AdminLoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        // $credentials = $request->getCredentials();
-
-        // if (!Auth::guard('admin')->validate($credentials)) {
-        //     return redirect()->to('admin/login')
-        //         ->withErrors(trans('auth.failed'));
-        // }
-    
-        // $admin = Auth::guard('admin')->getProvider()->retrieveByCredentials($credentials);
-        // // echo "<pre>";
-        // // print_r($admin); die;
-    
-        // Auth::guard('admin')->login($admin, $request->filled('remember'));
-    
-        // if ($request->filled('remember')) {
-        //     $this->setRememberMeExpiration($admin);
-        // }
-    
-        // return $this->authenticated($request, $admin);
 
         $credentials = $request->getCredentials();
 
