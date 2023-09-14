@@ -68,8 +68,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
 
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
         Route::get('/user-details', 'UserDetailController@showForm')->name('user-details.form');
         Route::post('/user-details', 'UserDetailController@store')->name('user-details.store');
+        Route::get('/dashboard/about', 'DashboardController@about')->name('/dashboard.about');
+        Route::get('/dashboard/deposit', 'DashboardController@deposit')->name('/dashboard.deposit');
+        Route::get('/dashboard/orders', 'DashboardController@orders')->name('/dashboard.orders');
+        Route::get('/dashboard/profile-setting', 'DashboardController@profileSetting')->name('/dashboard.profile-setting');
     });
 
 

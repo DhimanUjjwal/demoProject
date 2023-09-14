@@ -41,7 +41,7 @@
 
     @include('layouts.partials.navbar')
 
-    <main   >
+    <main>
 
         @yield('content')
        

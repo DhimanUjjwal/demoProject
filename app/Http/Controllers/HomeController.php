@@ -17,7 +17,7 @@ class HomeController extends Controller
         } else if($user && !$user->userDetail) {
             return view('home.UserDetails');
         }else{
-            return view('home.index');
+            return view('home.indexAuth');
         }
     }
 }

@@ -65,7 +65,7 @@ class UserDetailController extends Controller
     {
         $users = User::join('user_details', 'users.id', '=', 'user_details.user_id')
             ->select('users.email', 'user_details.address', 'user_details.first_name', 'user_details.last_name') 
-            ->paginate(10); // Fetch all user details
+            ->paginate(8); // Fetch all user details
         return view('home.listview', ['users' => $users]);
     }
 }
