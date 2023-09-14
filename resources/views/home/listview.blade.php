@@ -21,80 +21,70 @@
 
 <div id="container">
     <div id="centered-div">
-        <h1>Listed Influencer</h1>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>Full Name</th>
-                    <th>Address</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $item)
-                <tr>
-                    <td>{{ $item->email }}</td>
-                    <td>{{ $item->first_name . ' ' . $item->last_name }}</td>
-                    <td>{{ $item->address }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @foreach ($users as $item)
+        @include('layouts.partials.userCard',['user' => $item])
+        @endforeach
 
-        <!-- Pagination Bar -->
-        <ul class="pagination">
-            @if ($users->currentPage() > 1)
-                <li>
-                    <button class="btn btn-outline-dark">
-                        <a href="{{ $users->previousPageUrl() }}" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </button>
-                </li>
-            @endif
-            @for ($i = 1; $i <= $users->lastPage(); $i++)
-                <li class="{{ $users->currentPage() == $i ? 'active' : '' }}">
-                    <button class="btn btn-outline-dark">
-                        <a href="{{ $users->url($i) }}">
-                            {{ $i }}
-                        </a>
-                    </button>
-                </li>
+    </div>
+    <!-- Pagination Bar -->
+    <ul class="pagination">
+        @if ($users->currentPage() > 1)
+        <li>
+            <a href="{{ $users->previousPageUrl() }}" class="btn btn-light" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @endif
+        @for ($i = 1; $i <= $users->lastPage(); $i++)
+            <li class="{{ $users->currentPage() == $i ? 'active' : '' }}">
+                <a href="{{ $users->url($i) }}" class="btn btn-light">
+                    {{ $i }}
+                </a>
+
+            </li>
             @endfor
             @if ($users->currentPage() < $users->lastPage())
                 <li>
-                    <button class="btn btn-outline-dark">
-                        <a href="{{ $users->nextPageUrl() }}" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </button>
+                    <a href="{{ $users->nextPageUrl() }}" aria-label="Next" class="btn btn-light">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
-            @endif
-        </ul>
-
-
-        </ul>
-    </div>
+                @endif
+    </ul>
 </div>
 
 <style>
-#container {
-  padding: 3%;  
-  background-color: #26202e;
-}
+    #centered-div {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 14px;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 2rem;
+        border: 1px solid #ccc;
+        height: 100%;
+    }
 
-#centered-div {
-  background-color: #e8e5ffa1;
-  border: 1px solid #ccc;
-}
+    #container {
+        padding: 2rem 1rem;
+        background-color: #26202e;
 
-.pagination {
-    display: flex;
-    justify-content: flex-end; /* Shift to the extreme right */
-    padding-right: 10px;
-    list-style: none;
-}
+    }
+
+    #centered-div {
+        background-color: #e8e5ffa1;
+        border: 1px solid #ccc;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+        /* Shift to the extreme right */
+        padding-top: 2rem;
+        list-style: none;
+        gap: 10px;
+    }
 </style>
 @endsection
-

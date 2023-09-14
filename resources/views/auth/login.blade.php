@@ -1,7 +1,7 @@
 @extends('layouts.auth-master')
 
 @section('content')
-    <form method="post" action="{{ route('login.perform') }}">
+    <form  class="form-signin" method="post" action="{{ route('login.perform') }}">
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
        
